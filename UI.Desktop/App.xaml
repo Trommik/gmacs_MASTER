@@ -1,18 +1,22 @@
 <Application x:Class="UI.Desktop.App" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             xmlns:local="clr-namespace:UI.Desktop" 
-             StartupUri="MainWindow.xaml" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             d1p1:Ignorable="d" 
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             
              xmlns:LogicUI="clr-namespace:Logic.UI;assembly=Logic.UI"
              xmlns:Desktop="clr-namespace:UI.Desktop"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls">
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d1p1:Ignorable="d" 
+             
+             StartupUri="MainWindow.xaml" >
 
     <Application.Resources>
         <ResourceDictionary>
 
+            
+            
             <!--Adds the MahApps.Metro Theme. Info: http://mahapps.com/guides/quick-start.html#installation-->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -26,21 +30,27 @@
                 <!--MahApps.Metro Icons-->
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
 
-
                 <!--My Colors-->
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
-
-
 
             </ResourceDictionary.MergedDictionaries>
 
 
-
+            
+            
+            
+            
+            <!--Initialises a new MessageListener and ViewModelLocator.-->
             <LogicUI:ViewModelLocator x:Key="Locator" 
                                       d:IsDataSource="True" />
             <Desktop:MessageListener x:Key="MessageListener"  />
 
 
+            
+            
+            
+            
+            
 
             <!--Custom style for the MetroGroupBox-->
             <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MetroGroupBox}">

@@ -8,9 +8,7 @@ namespace UI.Desktop
 {
     using GalaSoft.MvvmLight.Messaging;
 
-    using Logic.UI;
-    //using Logic.UI.Messages;
-    
+    using Logic.UI;    
 
     /// <summary>
     /// Central listenere for all messages of the app.
