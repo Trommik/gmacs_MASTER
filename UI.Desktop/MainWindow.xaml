@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:local="clr-namespace:UI.Desktop"
+        xmlns:Local="clr-namespace:UI.Desktop"
         mc:Ignorable="d"
         d:DesignWidth="868" d:DesignHeight="600" 
                       
@@ -15,15 +15,18 @@
         BorderBrush="{DynamicResource highlight1}"
         DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
 
-
+    
+    <!--Binds to the BindableProperty of the MessageListener to activate him.-->
     <Window.IsEnabled>
         <Binding Path="BindableProperty" Source="{StaticResource MessageListener}" />
     </Window.IsEnabled>
 
+    
+
     <DockPanel Margin="5,0,5,0" >
-
-
-
+        
+        
+        
         <Menu DockPanel.Dock="Top" FontSize="14" Margin="-5,0,-5,0" Background="{DynamicResource Gray14}" d:IsLocked="True">
             <MenuItem Header="_Datei" >
                 <MenuItem Header="Neu" >
@@ -48,7 +51,6 @@
 
 
 
-
         <ToolBarTray DockPanel.Dock="Top" Background="{DynamicResource Gray14}" d:IsLocked="True">
             <ToolBar>
 
@@ -66,11 +68,9 @@
 
 
 
-
         <StatusBar DockPanel.Dock="Bottom" Background="#995EEE00" FontSize="14"  Margin="-5,0,-5,0" d:IsLocked="True">
             <StatusBarItem Content="Ready!" Margin="5,0"/>
         </StatusBar>
-
 
 
 
@@ -167,7 +167,7 @@
 
 
 
-                    <!--<local:GeneratorControl/>-->
+                    <Local:GeneratorControl/>
 
 
 
@@ -177,7 +177,7 @@
 
 
 
-                    <!--<local:GeneratorControl/>-->
+                    <!--<Local:GeneratorControl/>-->
 
 
 

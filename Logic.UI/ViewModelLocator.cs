@@ -24,7 +24,7 @@ namespace Logic.UI
     /// </summary>
     public class ViewModelLocator
     {
-        #region Constructors and Destructors
+        #region constructors and destructors
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -37,14 +37,14 @@ namespace Logic.UI
                 // Create design time view services and models
             }
             SimpleIoc.Default.Register<MainViewModel>();
-           // SimpleIoc.Default.Register<GeneratorControlViewModel>();
+            SimpleIoc.Default.Register<GeneratorControlViewModel>();
 
 
         }
 
         #endregion
 
-        #region Methods
+        #region methods
 
         /// <summary>
         /// Cleans up resources.
@@ -55,7 +55,7 @@ namespace Logic.UI
 
         #endregion
 
-        #region Properties
+        #region properties
 
         /// <summary>
         /// Retrieves the view model for the main view.
@@ -65,7 +65,7 @@ namespace Logic.UI
         /// <summary>
         /// Retrieves the view model for the child view.
         /// </summary>
-       // public GeneratorControlViewModel Generator => ServiceLocator.Current.GetInstance<GeneratorControlViewModel>();
+        public GeneratorControlViewModel Generator => ServiceLocator.Current.GetInstance<GeneratorControlViewModel>();
 
         #endregion
     }

@@ -20,7 +20,7 @@ namespace Logic.UI
     {
 
 
-
+        #region constructors and destructors
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -30,14 +30,19 @@ namespace Logic.UI
             if (IsInDesignMode)
             {
                 // code runs in blend --> create design time data.
-                Title = "CMatrix Controller (Designmode)";
+                Title = "GMaCS (Designmode)";
             }
             else
             {
                 // code runs "for real"
-                Title = "CMatrix Controller";
+                Title = "GMaCS";
 
             }
         }
+
+
+        #endregion
+
+
     }
 }
