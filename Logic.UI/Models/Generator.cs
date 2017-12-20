@@ -50,7 +50,7 @@ namespace Logic.UI.Models
         /// <summary>
         /// The MixMode of the generator.
         /// </summary>
-        public string MixMode { get; set; }
+        public MixerTypes MixerType { get; set; }
 
         /// <summary>
         /// The Speed of the generator.

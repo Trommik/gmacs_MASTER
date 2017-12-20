@@ -50,7 +50,7 @@
 
                     <!--Row with MIX MODE Combobox-->
                     <Label Grid.Column="0" Grid.Row="1" Content="Mix-Mode:" VerticalAlignment="Center" />
-                    <ComboBox Grid.Column="2" Grid.Row="1" SelectedItem="{Binding GeneratorModel.MixMode}" VerticalAlignment="Center" Margin="0,2"/>
+                    <ComboBox Grid.Column="2" Grid.Row="1" SelectedItem="{Binding GeneratorModel.MixerType}" ItemsSource="{Binding MixerTypesList}" VerticalAlignment="Center" Margin="0,2"/>
 
                     <!--Row with SPEED Slider and Labels-->
                     <Label Grid.Column="0" Grid.Row="2" Content="Speed:" VerticalAlignment="Center" />

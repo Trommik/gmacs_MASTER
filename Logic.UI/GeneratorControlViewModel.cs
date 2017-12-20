@@ -6,7 +6,9 @@ namespace Logic.UI
 {
     using BaseTypes;
     using Logic.UI.Models;
+    using System;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows.Data;
 
     public class GeneratorControlViewModel : BaseViewModel
@@ -85,6 +87,8 @@ namespace Logic.UI
 
 
         #region Propertyies
+
+        public IEnumerable<MixerTypes> MixerTypesList { get => Enum.GetValues(typeof(MixerTypes)).Cast<MixerTypes>(); }
 
         /// <summary>
         /// A List with all availabel GeneratorTypes for the Types Combobox.
