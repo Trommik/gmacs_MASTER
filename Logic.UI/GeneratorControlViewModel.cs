@@ -6,6 +6,7 @@ namespace Logic.UI
 {
     using BaseTypes;
     using GalaSoft.MvvmLight.Command;
+    using GalaSoft.MvvmLight.Threading;
     using Logic.UI.Models;
     using System;
     using System.ComponentModel;
@@ -151,10 +152,10 @@ namespace Logic.UI
             {
                 return;
             }
-            //if (GeneratorsView.IsEditingItem || GeneratorsView.IsAddingNew)
-            //{
-            //    return;
-            //}
+            if (GeneratorsView.IsEditingItem || GeneratorsView.IsAddingNew)
+            {
+                return;
+            }
             GeneratorsView.Refresh();
         }
 
