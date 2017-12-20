@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 namespace Logic.UI
 {
     using BaseTypes;
+    using GalaSoft.MvvmLight.Command;
     using Logic.UI.Models;
     using System;
     using System.ComponentModel;
@@ -22,18 +23,18 @@ namespace Logic.UI
             var startupGeneratorList = new List<Generator>();
 
             startupGeneratorList.Add(
-                new ColorGenerator
+                new TextGenerator
                 {
-                    Title = "Black",
-                    Type = GeneratorTypes.META_BALLS,
+                    Title = "Text",
+                    Type = GeneratorTypes.TEXT,
                     Speed = 50,
                     Level = 0,
                 });
             startupGeneratorList.Add(
                 new ColorGenerator
                 {
-                    Title = "Text",
-                    Type = GeneratorTypes.FADE_AND_SCROLL,
+                    Title = "Color",
+                    Type = GeneratorTypes.COLOR,
                     Speed = 75,
                     Level = 75,
                 });
@@ -81,6 +82,10 @@ namespace Logic.UI
             };
 
 
+            // Inits commands for adding and deleting Generators
+            DeleteGeneratorCommand = new RelayCommand(() => Generators.Remove(GeneratorModel));
+            AddNewGeneratorCommand = new RelayCommand(() => Generators.Add(new ColorGenerator()));
+
         }
 
         #endregion
@@ -88,10 +93,23 @@ namespace Logic.UI
 
         #region Propertyies
 
+        /// <summary>
+        /// Deletes the selected <see cref="GeneratorModel"/> from the <see cref="Generators"/> List.
+        /// </summary>
+        public RelayCommand DeleteGeneratorCommand { get; }
+
+        /// <summary>
+        /// Duplicates the selected <see cref="GeneratorModel"/> in the <see cref="Generators"/> List.
+        /// </summary>
+        public RelayCommand AddNewGeneratorCommand { get; }
+
+        /// <summary>
+        /// A IEnumerable with all <see cref="MixerTypes"/> for the MixerType Combobox
+        /// </summary>
         public IEnumerable<MixerTypes> MixerTypesList { get => Enum.GetValues(typeof(MixerTypes)).Cast<MixerTypes>(); }
 
         /// <summary>
-        /// A List with all availabel GeneratorTypes for the Types Combobox.
+        /// A List with all availabel <see cref="GeneratorTypes"/> for the Types Combobox as <see cref="GeneratorInfo"/> object.
         /// </summary>
         public ObservableCollection<GeneratorInfo> GeneratorTypesList { get => GeneratorTypesExtensionMethods.InfosList; }
 
@@ -133,10 +151,10 @@ namespace Logic.UI
             {
                 return;
             }
-            if (GeneratorsView.IsEditingItem || GeneratorsView.IsAddingNew)
-            {
-                return;
-            }
+            //if (GeneratorsView.IsEditingItem || GeneratorsView.IsAddingNew)
+            //{
+            //    return;
+            //}
             GeneratorsView.Refresh();
         }
 
