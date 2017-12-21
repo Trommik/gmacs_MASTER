@@ -84,7 +84,9 @@ namespace Logic.UI
 
 
             // Inits commands for adding and deleting Generators
-            DeleteGeneratorCommand = new RelayCommand<Generator>((s) => DeleteGenerator(s));
+            MoveGeneratorDownCommand = new RelayCommand(() => MoveGeneratorDown());
+            MoveGeneratorUpCommand = new RelayCommand(() => MoveGeneratorUp());
+            DeleteGeneratorCommand = new RelayCommand(() => Generators.Remove(GeneratorModel));
             AddNewGeneratorCommand = new RelayCommand(() => Generators.Add(new ColorGenerator()));
 
         }
@@ -95,9 +97,19 @@ namespace Logic.UI
         #region Propertyies
 
         /// <summary>
-        /// Deletes the <see cref="Generator"/> from the <see cref="Generators"/> List.
+        /// Moves the <see cref="GeneratorModel"/> down in the List.
         /// </summary>
-        public RelayCommand<Generator> DeleteGeneratorCommand { get; }
+        public RelayCommand MoveGeneratorDownCommand { get; }
+
+        /// <summary>
+        /// Moves the <see cref="GeneratorModel"/> up in the List.
+        /// </summary>
+        public RelayCommand MoveGeneratorUpCommand { get; }
+
+        /// <summary>
+        /// Deletes the <see cref="GeneratorModel"/> from the <see cref="Generators"/> List.
+        /// </summary>
+        public RelayCommand DeleteGeneratorCommand { get; }
 
         /// <summary>
         /// Duplicates the selected <see cref="GeneratorModel"/> in the <see cref="Generators"/> List.
@@ -142,19 +154,22 @@ namespace Logic.UI
         #region Methods
 
         /// <summary>
-        /// Removes the <see cref="Generator"/> from the <see cref="Generators"/> List.
+        /// Moves the <see cref="GeneratorModel"/> down in the List.
         /// </summary>
-        /// <param name="sender"> The Generator to remove. </param>
-        public void DeleteGenerator(Generator sender)
+        public void MoveGeneratorDown()
         {
-            //for (int i = Generators.Count - 1; i > -1; i--)
-            //{
 
-            //      Generators.Remove(Generators[i]);
-
-            //}
         }
 
+        /// <summary>
+        /// Moves the <see cref="GeneratorModel"/> up in the List.
+        /// </summary>
+        public void MoveGeneratorUp()
+        {
+
+        }
+
+       
         /// <summary>
         /// Event handler for property changes on elements of <see cref="Generator"/>.
         /// </summary>

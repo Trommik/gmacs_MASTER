@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Local="clr-namespace:UI.Desktop"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600"
              DataContext="{Binding Generator, Mode=OneWay, Source={StaticResource Locator}}">
@@ -13,15 +14,96 @@
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <GroupBox Header="Generator Options:">
+        <!--All Buttons to edit the Generators list-->
+        <ToolBarPanel Grid.Column="0" Margin="5,5,0,0" Grid.Row="0" Background="{DynamicResource Gray14}">
+            <ToolBar>
 
-            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="0,0,5,0">
+                <!--ADD Button-->
+                <Button Command="{Binding AddNewGeneratorCommand}">
+                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <!--DELETE Button-->
+                <Button Command="{Binding DeleteGeneratorCommand}">
+                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_delete}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+                
+                <!--UP Button-->
+                <Button Command="{Binding MoveGeneratorUpCommand}">
+                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_chevron_up}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+                
+                <!--DOWN Button-->
+                <Button Command="{Binding MoveGeneratorDownCommand}">
+                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_chevron_down}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+                
+                                
+            </ToolBar>
+        </ToolBarPanel>
+
+
+        <!--The list of created Generators-->
+        <ListBox x:Name="GeneratorListBox" Grid.Column="0" Grid.Row="1" Margin="5,5,0,5" ItemsSource="{Binding GeneratorsView}" IsSynchronizedWithCurrentItem="True">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel LastChildFill="False">
+                        <Label Content="{Binding Title}" DockPanel.Dock="Left"/>
+
+                        <Rectangle DockPanel.Dock="Right" Margin="0,0,5,0" Width="16" Height="10" Fill="WhiteSmoke">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_logic_and}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
+
+        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Style="{DynamicResource MyVertGridSplitter}" Background="Transparent" />
+
+
+        <GroupBox Header="Generator Options:" Grid.Column="2" Grid.RowSpan="2" Margin="5" Background="#FF007ACC" Controls:GroupBoxHelper.HeaderForeground="White">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,5,0">
+
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                
+                    <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="10"/>
@@ -89,86 +171,18 @@
                     <!--Row with new tab Button-->
                     <Button Command="{Binding AddNewGeneratorCommand}" Margin="5,7,5,2" Content="Duplicate" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="12" FontWeight="Normal" />
                 </Grid>
+
+                    
+                    <GridSplitter Grid.Column="1" Margin="2,0,2,0" Grid.RowSpan="3" Style="{DynamicResource MyVertGridSplitter}" Background="Transparent" />
+
+                    
+                    <ContentControl Content="{Binding GeneratorModel}" Grid.Column="2"/>
+
+                </Grid>
             </ScrollViewer>
 
         </GroupBox>
         
-
-        <!--TabControl which holds all custom settings for each Generator-->
-        <TabControl Name="TabMain" ItemsSource="{Binding GeneratorsView}" Grid.Column="2" TabStripPlacement="Top" Background="{DynamicResource Gray4}" BorderBrush="{DynamicResource Gray7}" IsSynchronizedWithCurrentItem="True" >
-
-            <!--Tab Control Item Style-->
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <!--Header Stack Panel-->
-                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-
-                            <TextBlock Text="{Binding Title, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="0,0,3,0" FontWeight="Bold" FontSize="16"/>
-
-                            <Button Padding="0" Command="{Binding DataContext.DeleteGeneratorCommand,RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" CommandParameter="{Binding ElementName=TabMain,Path=SelectedItem}">
-                                <!--Button Styling-->
-                                <Button.Template>
-                                    <ControlTemplate>
-
-                                        <!--Close Icon Rectangle Styling-->
-                                        <Rectangle Margin="2" Width="12" Height="12">
-
-                                            <!--Set the Icon Color to the default-->
-                                            <Rectangle.Style>
-                                                <Style TargetType="{x:Type Rectangle}">
-                                                    <Setter Property="Fill" Value="{DynamicResource GrayNormal}"/>
-
-                                                    <!--Set the Icon Color after some triggers-->
-                                                    <Style.Triggers>
-
-                                                        <!--Mouse Over Trigger-->
-                                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=TemplatedParent}}" Value="True">
-                                                            <Setter Property="Fill" Value="{StaticResource GrayHover}"/>
-                                                        </DataTrigger>
-
-                                                        <!--Mouse Over and Click Trigger-->
-                                                        <MultiDataTrigger>
-                                                            <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Mode=TemplatedParent}}" Value="True" />
-                                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=TemplatedParent}}" Value="True" />
-                                                            </MultiDataTrigger.Conditions>
-                                                            <MultiDataTrigger.Setters>
-                                                                <Setter Property="Fill" Value="{DynamicResource highlight3}"/>
-                                                            </MultiDataTrigger.Setters>
-                                                        </MultiDataTrigger>
-
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Rectangle.Style>
-
-                                            <!--Set the Icon in the Rectangle as Visual brush-->
-                                            <Rectangle.OpacityMask>
-                                                <VisualBrush Visual="{StaticResource appbar_close}" />
-                                            </Rectangle.OpacityMask>
-
-
-                                        </Rectangle>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-
-                        </StackPanel>
-
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-
-
-            <!--Tab Control "Content"-->
-            <!--<TabControl.ContentTemplateSelector>
-                <Local:GeneratorDataTemplateSelector/>
-            </TabControl.ContentTemplateSelector>-->
-
-
-        </TabControl>
-
-
     </Grid>
 
 
