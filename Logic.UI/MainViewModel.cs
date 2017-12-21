@@ -3,6 +3,7 @@
 namespace Logic.UI
 {
     using BaseTypes;
+    using Models;
 
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -19,6 +20,21 @@ namespace Logic.UI
     public class MainViewModel : BaseViewModel
     {
 
+        #region const
+
+        /// <summary>
+        /// Static instance of the left generator control ViewModel.
+        /// </summary>
+        readonly static GeneratorControlViewModel _leftGeneratorVM = new GeneratorControlViewModel();
+
+        /// <summary>
+        /// Static instance of the right generator control ViewModel.
+        /// </summary>
+        readonly static GeneratorControlViewModel _rightGeneratorVM = new GeneratorControlViewModel();
+
+
+
+        #endregion
 
         #region constructors and destructors
 
@@ -31,11 +47,17 @@ namespace Logic.UI
             {
                 // code runs in blend --> create design time data.
                 Title = "GMaCS (Designmode)";
+
+                LeftGeneratorVM = _leftGeneratorVM;
+                RightGeneratorVM = _rightGeneratorVM;
             }
             else
             {
                 // code runs "for real"
                 Title = "GMaCS";
+
+                LeftGeneratorVM = _leftGeneratorVM;
+                RightGeneratorVM = _rightGeneratorVM;
 
             }
         }
@@ -44,5 +66,22 @@ namespace Logic.UI
         #endregion
 
 
+        #region properties
+
+        /// <summary>
+        /// The setter is private since only this 
+        /// class can change the view via a command.  If the View is changed,
+        /// we need to raise a property changed event (via INPC).
+        /// </summary>
+        public ViewModelBase LeftGeneratorVM { get; private set; }
+        public ViewModelBase RightGeneratorVM { get; private set; }
+
+
+        #endregion
+
+
+        #region methods
+
+        #endregion
     }
 }

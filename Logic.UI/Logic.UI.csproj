@@ -76,6 +76,7 @@
     <Compile Include="Models\Generators\ColorGenerator.cs" />
     <Compile Include="Models\Generators\TextGenerator.cs" />
     <Compile Include="Models\GeneratorTypes.cs" />
+    <Compile Include="Models\Mixer.cs" />
     <Compile Include="Models\MixerTypes.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

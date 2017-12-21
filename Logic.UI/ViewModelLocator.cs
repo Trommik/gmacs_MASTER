@@ -37,8 +37,6 @@ namespace Logic.UI
                 // Create design time view services and models
             }
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<GeneratorControlViewModel>();
-
 
         }
 
@@ -61,11 +59,6 @@ namespace Logic.UI
         /// Retrieves the view model for the main view.
         /// </summary>
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-
-        /// <summary>
-        /// Retrieves the view model for the child view.
-        /// </summary>
-        public GeneratorControlViewModel Generator => ServiceLocator.Current.GetInstance<GeneratorControlViewModel>();
 
         #endregion
     }

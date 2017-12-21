@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              
              xmlns:LogicUI="clr-namespace:Logic.UI;assembly=Logic.UI"
-             xmlns:Models="clr-namespace:Logic.UI.Models;assembly=Logic.UI"
              xmlns:Desktop="clr-namespace:UI.Desktop"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              
@@ -37,10 +36,7 @@
             </ResourceDictionary.MergedDictionaries>
 
 
-            
-            
-            
-            
+
             <!--Initialises a new MessageListener and ViewModelLocator.-->
             <LogicUI:ViewModelLocator x:Key="Locator" 
                                       d:IsDataSource="True" />
@@ -48,30 +44,11 @@
 
             
             
-            <DataTemplate DataType="{x:Type Models:ColorGenerator}">
-                <DockPanel>
-                    <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
-                        <Label Content="Enter Color:" DockPanel.Dock="Left"/>
-                        <TextBox x:Name="ColorTB" Text="{Binding MatrixColor, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
-                    </DockPanel>
 
-                    <Canvas DockPanel.Dock="Bottom" Background="{Binding MatrixColor}"/>
-                </DockPanel>
-
+            <DataTemplate DataType="{x:Type LogicUI:GeneratorControlViewModel}">
+                <Desktop:GeneratorControl />
             </DataTemplate>
-
-            <DataTemplate DataType="{x:Type Models:TextGenerator}">
-                <DockPanel>
-                    <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
-                        <Label Content="Enter Text:" DockPanel.Dock="Left"/>
-                        <TextBox x:Name="DisplayTextTB" Text="{Binding DisplayText, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
-                    </DockPanel>
-
-                    <TextBlock DockPanel.Dock="Bottom" Text="{Binding DisplayText}"/>
-                </DockPanel>
-
-            </DataTemplate>
-
+            
 
 
 

@@ -4,25 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:Local="clr-namespace:UI.Desktop"
+             xmlns:Models="clr-namespace:Logic.UI.Models;assembly=Logic.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600"
-             DataContext="{Binding Generator, Mode=OneWay, Source={StaticResource Locator}}">
+             d:DesignHeight="300" d:DesignWidth="600">
 
+    
+    <!--DataTemplates for each individual Generator-->
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type Models:ColorGenerator}">
+            <DockPanel>
+                
+                <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
+                    <Label Content="Enter Color:" DockPanel.Dock="Left"/>
+                    <TextBox x:Name="ColorTB" Text="{Binding MatrixColor, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
+                </DockPanel>
+                
+                <Canvas DockPanel.Dock="Bottom" Background="{Binding MatrixColor}"/>
+            </DockPanel>
 
+        </DataTemplate>
 
+        <DataTemplate DataType="{x:Type Models:TextGenerator}">
+            <DockPanel>
+                
+                <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
+                    <Label Content="Enter Text:" DockPanel.Dock="Left"/>
+                    <TextBox x:Name="DisplayTextTB" Text="{Binding DisplayText, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
+                </DockPanel>
+                <TextBlock DockPanel.Dock="Bottom" Text="{Binding DisplayText}"/>
+                
+            </DockPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="34"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        
         <!--All Buttons to edit the Generators list-->
         <ToolBarPanel Grid.Column="0" Margin="5,5,0,0" Grid.Row="0" Background="{DynamicResource Gray14}">
             <ToolBar>
@@ -101,88 +128,87 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    
-                
+
                     <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    
-                    
-                    <!--Row with GENERATOR TYPE Combobox-->
-                    <Label Grid.Column="0" Grid.Row="0" Content="Type:" VerticalAlignment="Center" />
-                    <ComboBox Grid.Column="2" Grid.Row="0" SelectedItem="{Binding GeneratorModel.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding GeneratorTypesList}" VerticalAlignment="Center" Margin="0,2">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Text}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-
-                    
-                    <!--Row with MIX MODE Combobox-->
-                    <Label Grid.Column="0" Grid.Row="1" Content="Mixer Mode:" VerticalAlignment="Center" />
-                    <ComboBox Grid.Column="2" Grid.Row="1" SelectedItem="{Binding GeneratorModel.MixerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding MixerTypesList}" VerticalAlignment="Center" Margin="0,2"/>
-
-                    
-                    <!--Row with SPEED Slider and Labels-->
-                    <Label Grid.Column="0" Grid.Row="2" Content="Speed:" VerticalAlignment="Center" />
-                    <Grid Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Margin="0">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="34"/>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                        <Slider x:Name="SpeedSlider" Grid.Column="0" VerticalAlignment="Center" Value="{Binding GeneratorModel.Speed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Minimum="0" Maximum="100" Interval="1"/>
-                        <Label Content="{Binding ElementName=SpeedSlider, Path=Value}" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,0,0"/>
+
+
+                        <!--Row with GENERATOR TYPE Combobox-->
+                        <Label Grid.Column="0" Grid.Row="0" Content="Type:" VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="2" Grid.Row="0" SelectedItem="{Binding GeneratorModel.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding GeneratorTypesList}" VerticalAlignment="Center" Margin="0,2">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Text}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+
+                        <!--Row with MIX MODE Combobox-->
+                        <Label Grid.Column="0" Grid.Row="1" Content="Mixer Mode:" VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="2" Grid.Row="1" SelectedItem="{Binding GeneratorModel.MixerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding MixerTypesList}" VerticalAlignment="Center" Margin="0,2"/>
+
+
+                        <!--Row with SPEED Slider and Labels-->
+                        <Label Grid.Column="0" Grid.Row="2" Content="Speed:" VerticalAlignment="Center" />
+                        <Grid Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="34"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Slider x:Name="SpeedSlider" Grid.Column="0" VerticalAlignment="Center" Value="{Binding GeneratorModel.Speed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Minimum="0" Maximum="100" Interval="1"/>
+                            <Label Content="{Binding ElementName=SpeedSlider, Path=Value}" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,0,0"/>
+                        </Grid>
+
+
+                        <!--Row with LEVEL Slider and Labels-->
+                        <Label Grid.Column="0" Grid.Row="3" Content="Level:" VerticalAlignment="Center" />
+                        <Grid Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="34"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Slider x:Name="LevelSlider" Grid.Column="0" VerticalAlignment="Center" Value="{Binding GeneratorModel.Level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Minimum="0" Maximum="100" Interval="1"/>
+                            <Label Content="{Binding ElementName=LevelSlider, Path=Value}" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,0,0"/>
+                        </Grid>
+
+
+                        <!--Row with NAME Textbox and Label-->
+                        <Label Grid.Column="0" Grid.Row="4" Content="Name:" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding GeneratorModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+                        <!--Row with new tab Button-->
+                        <Button Command="{Binding AddNewGeneratorCommand}" Margin="5,7,5,2" Content="Duplicate" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="12" FontWeight="Normal" />
                     </Grid>
 
-                    
-                    <!--Row with LEVEL Slider and Labels-->
-                    <Label Grid.Column="0" Grid.Row="3" Content="Level:" VerticalAlignment="Center" />
-                    <Grid Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="34"/>
-                        </Grid.ColumnDefinitions>
 
-                        <Slider x:Name="LevelSlider" Grid.Column="0" VerticalAlignment="Center" Value="{Binding GeneratorModel.Level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Minimum="0" Maximum="100" Interval="1"/>
-                        <Label Content="{Binding ElementName=LevelSlider, Path=Value}" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,0,0"/>
-                    </Grid>
-
-
-                    <!--Row with NAME Textbox and Label-->
-                    <Label Grid.Column="0" Grid.Row="4" Content="Name:" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding GeneratorModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-
-                    <!--Row with new tab Button-->
-                    <Button Command="{Binding AddNewGeneratorCommand}" Margin="5,7,5,2" Content="Duplicate" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="12" FontWeight="Normal" />
-                </Grid>
-
-                    
                     <GridSplitter Grid.Column="1" Margin="2,0,2,0" Grid.RowSpan="3" Style="{DynamicResource MyVertGridSplitter}" Background="Transparent" />
 
-                    
+
+                    <!-- Shows a specific DataTemplate defined in the UserControl Resources.
+                         This Template is for setting the specific Generator options. -->
                     <ContentControl Content="{Binding GeneratorModel}" Grid.Column="2"/>
 
                 </Grid>
             </ScrollViewer>
-
         </GroupBox>
-        
     </Grid>
 
 
