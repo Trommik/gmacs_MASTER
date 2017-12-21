@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Logic.UI.Models
 {
     public class ColorGenerator : Generator
     {
+
+        public Brush MatrixColor { get; set; }
+
+
         public override void GenerateImage()
         {
             throw new NotImplementedException();

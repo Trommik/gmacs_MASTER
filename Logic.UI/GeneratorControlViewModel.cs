@@ -84,7 +84,7 @@ namespace Logic.UI
 
 
             // Inits commands for adding and deleting Generators
-            DeleteGeneratorCommand = new RelayCommand(() => Generators.Remove(GeneratorModel));
+            DeleteGeneratorCommand = new RelayCommand<Generator>((s) => DeleteGenerator(s));
             AddNewGeneratorCommand = new RelayCommand(() => Generators.Add(new ColorGenerator()));
 
         }
@@ -95,9 +95,9 @@ namespace Logic.UI
         #region Propertyies
 
         /// <summary>
-        /// Deletes the selected <see cref="GeneratorModel"/> from the <see cref="Generators"/> List.
+        /// Deletes the <see cref="Generator"/> from the <see cref="Generators"/> List.
         /// </summary>
-        public RelayCommand DeleteGeneratorCommand { get; }
+        public RelayCommand<Generator> DeleteGeneratorCommand { get; }
 
         /// <summary>
         /// Duplicates the selected <see cref="GeneratorModel"/> in the <see cref="Generators"/> List.
@@ -140,6 +140,20 @@ namespace Logic.UI
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Removes the <see cref="Generator"/> from the <see cref="Generators"/> List.
+        /// </summary>
+        /// <param name="sender"> The Generator to remove. </param>
+        public void DeleteGenerator(Generator sender)
+        {
+            //for (int i = Generators.Count - 1; i > -1; i--)
+            //{
+
+            //      Generators.Remove(Generators[i]);
+
+            //}
+        }
 
         /// <summary>
         /// Event handler for property changes on elements of <see cref="Generator"/>.

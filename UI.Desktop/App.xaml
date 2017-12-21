@@ -52,11 +52,10 @@
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
                         <Label Content="Enter Color:" DockPanel.Dock="Left"/>
-                        <TextBox x:Name="ColorTB" Text="{Binding Title, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
-                        <Button Content="Hallo" />
+                        <TextBox x:Name="ColorTB" Text="{Binding MatrixColor, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
                     </DockPanel>
 
-                    <Canvas DockPanel.Dock="Bottom" Background="{Binding ElementName=ColorTB, Path=Text}"/>
+                    <Canvas DockPanel.Dock="Bottom" Background="{Binding MatrixColor}"/>
                 </DockPanel>
 
             </DataTemplate>
@@ -64,11 +63,11 @@
             <DataTemplate DataType="{x:Type Models:TextGenerator}">
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
-                        <Label Content="Enter Color:" DockPanel.Dock="Left"/>
-                        <TextBox x:Name="ColorTB" Text="{Binding Title}" DockPanel.Dock="Right"/>
+                        <Label Content="Enter Text:" DockPanel.Dock="Left"/>
+                        <TextBox x:Name="DisplayTextTB" Text="{Binding DisplayText, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
                     </DockPanel>
 
-                    <Canvas DockPanel.Dock="Bottom" Background="{Binding ElementName=ColorTB, Path=Text}"/>
+                    <TextBlock DockPanel.Dock="Bottom" Text="{Binding DisplayText}"/>
                 </DockPanel>
 
             </DataTemplate>
@@ -89,7 +88,7 @@
             <!--Custom style for the MetroGroupBox ENDE-->
 
 
-            <!--Custom style for the MetroTabItems with TabStipPlacment = Bottom-->
+            <!--Custom style for the MetroTabItems-->
             <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MetroTabItem}" >
                 <Setter Property="BorderBrush" Value="{DynamicResource Gray7}"/>
 

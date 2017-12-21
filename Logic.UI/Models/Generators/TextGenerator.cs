@@ -8,6 +8,9 @@ namespace Logic.UI.Models
 {
     public class TextGenerator : Generator
     {
+
+        public string DisplayText { get; set; }
+
         public override void GenerateImage()
         {
             throw new NotImplementedException();

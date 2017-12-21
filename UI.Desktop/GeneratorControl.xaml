@@ -95,7 +95,7 @@
         
 
         <!--TabControl which holds all custom settings for each Generator-->
-        <TabControl  ItemsSource="{Binding GeneratorsView}" Grid.Column="2" TabStripPlacement="Top" Background="{DynamicResource Gray4}" BorderBrush="{DynamicResource Gray7}" IsSynchronizedWithCurrentItem="True" >
+        <TabControl Name="TabMain" ItemsSource="{Binding GeneratorsView}" Grid.Column="2" TabStripPlacement="Top" Background="{DynamicResource Gray4}" BorderBrush="{DynamicResource Gray7}" IsSynchronizedWithCurrentItem="True" >
 
             <!--Tab Control Item Style-->
             <TabControl.ItemTemplate>
@@ -106,7 +106,7 @@
 
                             <TextBlock Text="{Binding Title, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="0,0,3,0" FontWeight="Bold" FontSize="16"/>
 
-                            <Button Padding="0" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DeleteGeneratorCommand}">
+                            <Button Padding="0" Command="{Binding DataContext.DeleteGeneratorCommand,RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" CommandParameter="{Binding ElementName=TabMain,Path=SelectedItem}">
                                 <!--Button Styling-->
                                 <Button.Template>
                                     <ControlTemplate>
