@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Logic.UI.Models
 {
     using BaseTypes;
-    
+    using System.Windows.Media.Imaging;
 
     public abstract class Generator : BaseModel
     {
@@ -77,7 +77,7 @@ namespace Logic.UI.Models
         /// <summary>
         /// Implement the logic to generate the image with the desired Size.
         /// </summary>
-        public abstract void GenerateImage();
+        public abstract WriteableBitmap GenerateImage();
 
         #endregion
 

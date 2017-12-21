@@ -3,7 +3,10 @@
 namespace Logic.UI
 {
     using BaseTypes;
+    using GalaSoft.MvvmLight.Command;
     using Models;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
 
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -59,6 +62,8 @@ namespace Logic.UI
                 LeftGeneratorVM = _leftGeneratorVM;
                 RightGeneratorVM = _rightGeneratorVM;
 
+                GenerateImageCommand = new RelayCommand(() => GenerateImage());
+
             }
         }
 
@@ -73,14 +78,24 @@ namespace Logic.UI
         /// class can change the view via a command.  If the View is changed,
         /// we need to raise a property changed event (via INPC).
         /// </summary>
-        public ViewModelBase LeftGeneratorVM { get; private set; }
-        public ViewModelBase RightGeneratorVM { get; private set; }
+        public GeneratorControlViewModel LeftGeneratorVM { get; private set; }
+        public GeneratorControlViewModel RightGeneratorVM { get; private set; }
 
+
+        public RelayCommand GenerateImageCommand { get; }
+
+        public WriteableBitmap OutputBitmap { get; private set; } 
 
         #endregion
 
 
         #region methods
+
+        public void GenerateImage()
+        {
+            // #TODO: IMPLEMENT LEFT/RIGHT CH MIXER
+            OutputBitmap = LeftGeneratorVM.GeneratorModel.GenerateImage();
+        }
 
         #endregion
     }

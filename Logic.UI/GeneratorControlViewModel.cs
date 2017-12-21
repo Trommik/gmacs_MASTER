@@ -116,6 +116,8 @@ namespace Logic.UI
         /// </summary>
         public RelayCommand AddNewGeneratorCommand { get; }
 
+
+
         /// <summary>
         /// A IEnumerable with all <see cref="MixerTypes"/> for the MixerType Combobox
         /// </summary>

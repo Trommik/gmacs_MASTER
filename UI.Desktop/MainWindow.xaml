@@ -54,7 +54,7 @@
         <ToolBarTray DockPanel.Dock="Top" Background="{DynamicResource Gray14}" d:IsLocked="True">
             <ToolBar>
 
-                <Button Content="Play" FontSize="14"/>
+                <Button Content="Play" FontSize="14" Command="{Binding GenerateImageCommand}"/>
 
             </ToolBar>
 
@@ -118,7 +118,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Viewport3D x:Name="OutputViewport" Grid.Row="1" ClipToBounds="True"/>
+                            <!--<Viewport3D x:Name="OutputViewport" Grid.Row="1" ClipToBounds="True"/>-->
+                            <Image x:Name="OutputImage" Grid.Row="1" ClipToBounds="True" Source="{Binding OutputBitmap}" />
                         </Grid>
 
                     </GroupBox>
