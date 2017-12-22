@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Logic.UI
+namespace Logic.UI.UserControlsVM
 {
     using BaseTypes;
     using GalaSoft.MvvmLight.Command;

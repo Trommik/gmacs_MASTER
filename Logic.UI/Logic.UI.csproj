@@ -70,12 +70,15 @@
   <ItemGroup>
     <Compile Include="BaseTypes\BaseModel.cs" />
     <Compile Include="BaseTypes\BaseViewModel.cs" />
-    <Compile Include="GeneratorControlViewModel.cs" />
+    <Compile Include="Models\HSVColor.cs" />
+    <Compile Include="UserControlsVM\ColorPickerViewModel.cs" />
+    <Compile Include="UserControlsVM\GeneratorControlViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Models\Generator.cs" />
     <Compile Include="Models\Generators\ColorGenerator.cs" />
     <Compile Include="Models\Generators\TextGenerator.cs" />
     <Compile Include="Models\GeneratorTypes.cs" />
+    <Compile Include="UserControlsVM\MatrixViewportViewModel.cs" />
     <Compile Include="Models\Mixer.cs" />
     <Compile Include="Models\MixerTypes.cs" />
     <Compile Include="Properties\Annotations.cs" />

@@ -4,7 +4,10 @@
              
              xmlns:LogicUI="clr-namespace:Logic.UI;assembly=Logic.UI"
              xmlns:Desktop="clr-namespace:UI.Desktop"
+             xmlns:UserControls="clr-namespace:UI.Desktop.UserControls"
+             xmlns:UserControlsVM="clr-namespace:Logic.UI.UserControlsVM;assembly=Logic.UI"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:ValueConverter="clr-namespace:UI.Desktop.ValueConverter"
              
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -45,11 +48,19 @@
             
             
 
-            <DataTemplate DataType="{x:Type LogicUI:GeneratorControlViewModel}">
-                <Desktop:GeneratorControl />
+            <DataTemplate DataType="{x:Type UserControlsVM:GeneratorControlViewModel}">
+                <UserControls:GeneratorControl />
             </DataTemplate>
-            
 
+            <DataTemplate DataType="{x:Type UserControlsVM:MatrixViewportViewModel}">
+                <UserControls:MatrixViewport />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type UserControlsVM:ColorPickerViewModel}">
+                <UserControls:ColorPicker />
+            </DataTemplate>
+
+            <ValueConverter:ColorToSolidColorBrushValueConverter  x:Key="ColorToSolidColorBrush_ValueConverter"/>
 
 
             <!--Custom style for the MetroGroupBox-->

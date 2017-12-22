@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.Desktop
+namespace UI.Desktop.UserControls
 {
     /// <summary>
     /// Interaction logic for GeneratorControl.xaml

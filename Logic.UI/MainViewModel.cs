@@ -5,8 +5,11 @@ namespace Logic.UI
     using BaseTypes;
     using GalaSoft.MvvmLight.Command;
     using Models;
+    using UserControlsVM;
+    using System;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using System.Windows.Threading;
 
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -35,7 +38,15 @@ namespace Logic.UI
         /// </summary>
         readonly static GeneratorControlViewModel _rightGeneratorVM = new GeneratorControlViewModel();
 
+        /// <summary>
+        /// Static instance of the output Matix Viewport ViewModel.
+        /// </summary>
+        readonly static MatrixViewportViewModel _outputMatrixViewportVM = new MatrixViewportViewModel("Output Viewport");
 
+        /// <summary>
+        /// Static instance of the output Matix Viewport ViewModel.
+        /// </summary>
+        readonly static ColorPickerViewModel _colorPicker = new ColorPickerViewModel();
 
         #endregion
 
@@ -51,18 +62,32 @@ namespace Logic.UI
                 // code runs in blend --> create design time data.
                 Title = "GMaCS (Designmode)";
 
-                LeftGeneratorVM = _leftGeneratorVM;
-                RightGeneratorVM = _rightGeneratorVM;
+                InitViewModels();
+
+                DispatcherTimer timer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromTicks(100)
+                };
+
+                timer.Tick += timer_Tick;
+                timer.Start();
+
             }
             else
             {
                 // code runs "for real"
                 Title = "GMaCS";
 
-                LeftGeneratorVM = _leftGeneratorVM;
-                RightGeneratorVM = _rightGeneratorVM;
+                InitViewModels();
 
                 GenerateImageCommand = new RelayCommand(() => GenerateImage());
+
+                DispatcherTimer timer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromTicks(100)
+                };
+                timer.Tick += timer_Tick;
+                timer.Start();
 
             }
         }
@@ -81,21 +106,41 @@ namespace Logic.UI
         public GeneratorControlViewModel LeftGeneratorVM { get; private set; }
         public GeneratorControlViewModel RightGeneratorVM { get; private set; }
 
+        public MatrixViewportViewModel OutputMatrixViewportVM { get; private set; }
+
+        public ColorPickerViewModel ColorPickerVM { get; private set; }
+
 
         public RelayCommand GenerateImageCommand { get; }
-
-        public WriteableBitmap OutputBitmap { get; private set; } 
 
         #endregion
 
 
         #region methods
 
+        void timer_Tick(object sender, EventArgs e)
+        {
+            GenerateImage();
+        }
+
+
         public void GenerateImage()
         {
             // #TODO: IMPLEMENT LEFT/RIGHT CH MIXER
-            OutputBitmap = LeftGeneratorVM.GeneratorModel.GenerateImage();
+            OutputMatrixViewportVM.UpdateImage(LeftGeneratorVM.GeneratorModel.GenerateImage());
+
         }
+
+        private void InitViewModels()
+        {
+            LeftGeneratorVM = _leftGeneratorVM;
+            RightGeneratorVM = _rightGeneratorVM;
+
+            OutputMatrixViewportVM = _outputMatrixViewportVM;
+
+            ColorPickerVM = _colorPicker;
+        }
+        
 
         #endregion
     }
