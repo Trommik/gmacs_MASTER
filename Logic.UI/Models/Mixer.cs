@@ -8,6 +8,7 @@ namespace Logic.UI.Models
 {
     using BaseTypes;
     using System.Collections.ObjectModel;
+    using System.Windows.Media.Imaging;
 
     public class Mixer : BaseModel
     {
@@ -49,6 +50,60 @@ namespace Logic.UI.Models
         {
             base.OnErrorsCollected();
         }
+
+
+
+        #region mixer methods
+
+        private WriteableBitmap MixAdd(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+
+            return BitmapFactory.New(10,10);
+        }
+
+        private WriteableBitmap MixSubstract(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+
+        private WriteableBitmap MixMultiply(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+
+        private WriteableBitmap MixDivide(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+
+        private WriteableBitmap MixDifference(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+
+        private WriteableBitmap MixAND(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+
+        private WriteableBitmap MixOR(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+
+        private WriteableBitmap MixXOR(WriteableBitmap inA, WriteableBitmap inB)
+        {
+
+            return BitmapFactory.New(10, 10);
+        }
+        #endregion
 
         #endregion
     }
