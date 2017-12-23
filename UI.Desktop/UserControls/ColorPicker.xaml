@@ -3,13 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              mc:Ignorable="d" 
-             d:DesignHeight="320" d:DesignWidth="355">
+             d:DesignHeight="335" d:DesignWidth="350">
 
 
-    <GroupBox Header="{Binding Title}">
+    <GroupBox Header="Color Picker">
 
         <Grid Margin="5">
             <Grid.RowDefinitions>
@@ -20,21 +18,21 @@
             <Image Grid.Row="0" x:Name="PickerImage" MouseDown="GetClickedPoint" MinWidth="100" MinHeight="100" Source="/Resources/colors.jpg"/>
 
             <DockPanel Grid.Row="1">
-                <Rectangle DockPanel.Dock="Top" MinHeight="10" Height="30" Margin="0,2,0,7" Fill="{Binding SelectedColor, Converter={StaticResource ColorToSolidColorBrush_ValueConverter}}"/>
+                <Rectangle DockPanel.Dock="Top" MinHeight="10" Height="30" Margin="0,2,0,7" Fill="{Binding SelectedColor, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource ColorToSolidColorBrush_ValueConverter}}"/>
 
-                <Button DockPanel.Dock="Left" Command="{Binding CopyHtmlValueCommand}" BorderThickness="0" Background="Transparent" Width="18" Height="18" Padding="0" Margin="1">
+                <Button DockPanel.Dock="Left" Click="PasteHtmlButton_Click" BorderThickness="0" Background="Transparent" Width="18" Height="18" Padding="0" Margin="1">
                     <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_edit}" />
+                            <VisualBrush Visual="{StaticResource appbar_clipboard_paste}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Button>
 
                 <Label DockPanel.Dock="Left" Content="Html:" Padding="0,6,6,6"/>
 
-                <TextBox DockPanel.Dock="Right" Text="{Binding SelectedColor}"/>
+                <TextBox DockPanel.Dock="Right" Text="{Binding SelectedColor, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </DockPanel>
-            
+
         </Grid>
 
     </GroupBox>

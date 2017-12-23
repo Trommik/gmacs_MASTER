@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:UserControls="clr-namespace:UI.Desktop.UserControls"
         xmlns:Local="clr-namespace:UI.Desktop"
         mc:Ignorable="d"
         d:DesignWidth="1169" d:DesignHeight="791" 
@@ -149,8 +150,6 @@
             <!--Right TabControl-->
             <TabControl Grid.Column="2" Grid.RowSpan="3" Margin="0,5,0,2" TabStripPlacement="Bottom" Background="{DynamicResource Gray4}" BorderBrush="{DynamicResource Gray7}">
                 <TabItem Header="TabItem1" Controls:ControlsHelper.HeaderFontSize="14">
-
-                    <ContentControl Content="{Binding ColorPickerVM}" />
 
                 </TabItem>
 

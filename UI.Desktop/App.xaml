@@ -56,9 +56,6 @@
                 <UserControls:MatrixViewport />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type UserControlsVM:ColorPickerViewModel}">
-                <UserControls:ColorPicker />
-            </DataTemplate>
 
             <ValueConverter:ColorToSolidColorBrushValueConverter  x:Key="ColorToSolidColorBrush_ValueConverter"/>
 

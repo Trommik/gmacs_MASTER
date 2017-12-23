@@ -43,10 +43,6 @@ namespace Logic.UI
         /// </summary>
         readonly static MatrixViewportViewModel _outputMatrixViewportVM = new MatrixViewportViewModel("Output Viewport");
 
-        /// <summary>
-        /// Static instance of the output Matix Viewport ViewModel.
-        /// </summary>
-        readonly static ColorPickerViewModel _colorPicker = new ColorPickerViewModel();
 
         #endregion
 
@@ -108,7 +104,7 @@ namespace Logic.UI
 
         public MatrixViewportViewModel OutputMatrixViewportVM { get; private set; }
 
-        public ColorPickerViewModel ColorPickerVM { get; private set; }
+        public Color MatrixColor { get; set; }
 
 
         public RelayCommand GenerateImageCommand { get; }
@@ -137,8 +133,6 @@ namespace Logic.UI
             RightGeneratorVM = _rightGeneratorVM;
 
             OutputMatrixViewportVM = _outputMatrixViewportVM;
-
-            ColorPickerVM = _colorPicker;
         }
         
 
