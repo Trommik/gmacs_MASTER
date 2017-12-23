@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -77,6 +78,21 @@ namespace UI.Desktop.UserControls
         private void PasteHtmlButton_Click(object sender, RoutedEventArgs e)
         {
 
+            if (Clipboard.ContainsData(DataFormats.Text))
+            {
+
+                string data = Clipboard.GetText(TextDataFormat.Text);
+
+                try
+                {
+                    TypeConverter tc = new ColorConverter();
+                    SelectedColor = (Color)tc.ConvertFromString(data);
+                }
+                catch (Exception err)
+                {
+                    // #TODO: Show fancy error message that the value is not valid.
+                }
+            }
         }
 
 

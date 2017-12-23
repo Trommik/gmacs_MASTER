@@ -41,8 +41,17 @@ namespace Logic.UI
         /// <summary>
         /// Static instance of the output Matix Viewport ViewModel.
         /// </summary>
-        readonly static MatrixViewportViewModel _outputMatrixViewportVM = new MatrixViewportViewModel("Output Viewport");
+        readonly static MatrixViewportViewModel _leftMatrixViewportVM = new MatrixViewportViewModel("Left Mixer Matrix");
 
+        /// <summary>
+        /// Static instance of the output Matix Viewport ViewModel.
+        /// </summary>
+        readonly static MatrixViewportViewModel _outputMatrixViewportVM = new MatrixViewportViewModel("Output Matrix");
+
+        /// <summary>
+        /// Static instance of the output Matix Viewport ViewModel.
+        /// </summary>
+        readonly static MatrixViewportViewModel _rightMatrixViewportVM = new MatrixViewportViewModel("Right Mixer Matrix");
 
         #endregion
 
@@ -62,7 +71,7 @@ namespace Logic.UI
 
                 DispatcherTimer timer = new DispatcherTimer
                 {
-                    Interval = TimeSpan.FromTicks(100)
+                    Interval = TimeSpan.FromMilliseconds(1000)
                 };
 
                 timer.Tick += timer_Tick;
@@ -102,7 +111,9 @@ namespace Logic.UI
         public GeneratorControlViewModel LeftGeneratorVM { get; private set; }
         public GeneratorControlViewModel RightGeneratorVM { get; private set; }
 
+        public MatrixViewportViewModel LeftMatrixViewportVM { get; private set; }
         public MatrixViewportViewModel OutputMatrixViewportVM { get; private set; }
+        public MatrixViewportViewModel RightMatrixViewportVM { get; private set; }
 
         public Color MatrixColor { get; set; }
 
@@ -122,9 +133,15 @@ namespace Logic.UI
 
         public void GenerateImage()
         {
-            // #TODO: IMPLEMENT LEFT/RIGHT CH MIXER
-            OutputMatrixViewportVM.UpdateImage(LeftGeneratorVM.GeneratorModel.GenerateImage());
+            if (LeftGeneratorVM.GeneratorModel == null)
+                return;
 
+            // #TODO: IMPLEMENT LEFT/RIGHT CH MIXER
+            LeftMatrixViewportVM.UpdateImage(LeftGeneratorVM.GeneratorModel.GenerateImage());
+
+            Mixer m = new Mixer();
+
+            RightMatrixViewportVM.UpdateImage(m.MixAdd(RightGeneratorVM.Generators[0].GenerateImage(), RightGeneratorVM.Generators[1].GenerateImage()));
         }
 
         private void InitViewModels()
@@ -132,9 +149,12 @@ namespace Logic.UI
             LeftGeneratorVM = _leftGeneratorVM;
             RightGeneratorVM = _rightGeneratorVM;
 
+            LeftMatrixViewportVM = _leftMatrixViewportVM;
             OutputMatrixViewportVM = _outputMatrixViewportVM;
+            RightMatrixViewportVM = _rightMatrixViewportVM;
+
         }
-        
+
 
         #endregion
     }

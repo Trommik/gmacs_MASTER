@@ -45,7 +45,7 @@ namespace Logic.UI.Models
         /// </summary>
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Generator Type must not be empty.")] // Error Checking
         //[MaxLength(20, ErrorMessage = "Maximum of 20 characters is allowed.")] // Error Checking
-        public GeneratorTypes Type { get; set; }
+        public GeneratorTypes Type { get; protected set; }
 
         /// <summary>
         /// The MixMode of the generator.
@@ -66,8 +66,6 @@ namespace Logic.UI.Models
         /// The Title of the Generator.
         /// </summary>
         public string Title { get; set; }
-
-
 
 
         #endregion

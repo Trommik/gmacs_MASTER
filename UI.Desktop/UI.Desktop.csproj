@@ -98,6 +98,9 @@
     <Compile Include="UserControls\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TextGeneratorControl.xaml.cs">
+      <DependentUpon>TextGeneratorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverter\ColorToSolidColorBrushValueConverter.cs" />
     <Page Include="UserControls\GeneratorControl.xaml">
       <SubType>Designer</SubType>
@@ -135,6 +138,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TextGeneratorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

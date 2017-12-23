@@ -102,41 +102,24 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Header="Left Mixer" Grid.Column="0">
-                        <Grid Margin="0,3,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Viewport3D x:Name="LeftViewport" Grid.Row="1" ClipToBounds="True"/>
-                        </Grid>
-                    </GroupBox>
+                    
+                    
+                    <ContentControl Grid.Column="0" Content="{Binding LeftMatrixViewportVM}"/>
+
 
                     <GridSplitter Grid.Column="1" Margin="0,8,0,2" Style="{DynamicResource MyVertGridSplitter}" Background="{DynamicResource Gray4}" />
 
                     
                     <ContentControl Grid.Column="2" Content="{Binding OutputMatrixViewportVM}"/>
 
-                    <!--<GroupBox Header="Output View" Grid.Column="2">
-                        <DockPanel Margin="0,3,0,0">
-                            --><!--<Image DockPanel.Dock="Top" Source="{Binding OutputBitmap}" />--><!--
-                            <Border DockPanel.Dock="Top">
-                                <Border.Background>
-                                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding OutputBitmap}"/>
-                                </Border.Background>
-                            </Border>
-                        </DockPanel>
-                    </GroupBox>-->
 
                     <GridSplitter Grid.Column="3" Margin="0,8,0,2" Style="{DynamicResource MyVertGridSplitter}" Background="{DynamicResource Gray4}" />
 
-                    <GroupBox Header="Right Mixer" Grid.Column="4">
-                        <Grid Margin="0,3,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Viewport3D x:Name="RightViewport" Grid.Row="1" ClipToBounds="True"/>
-                        </Grid>
-                    </GroupBox>
+                    
+                    <ContentControl Grid.Column="4" Content="{Binding RightMatrixViewportVM}"/>
+
+                    
+                    
                 </Grid>
             </Border>
             <!--Matrix View Grid ENDE-->

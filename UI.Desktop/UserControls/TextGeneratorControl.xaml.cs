@@ -1,6 +1,4 @@
-﻿using Logic.UI.Models;
-using Logic.UI.UserControlsVM;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +16,11 @@ using System.Windows.Shapes;
 namespace UI.Desktop.UserControls
 {
     /// <summary>
-    /// Interaction logic for GeneratorControl.xaml
+    /// Interaction logic for TextGeneratorControl.xaml
     /// </summary>
-    public partial class GeneratorControl : UserControl
+    public partial class TextGeneratorControl : UserControl
     {
-        public GeneratorControl()
+        public TextGeneratorControl()
         {
             InitializeComponent();
         }

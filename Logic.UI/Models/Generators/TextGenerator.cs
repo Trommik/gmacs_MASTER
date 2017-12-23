@@ -11,6 +11,12 @@ namespace Logic.UI.Models
     {
         public string DisplayText { get; set; }
 
+        public TextGenerator()
+        {
+            Type = GeneratorTypes.TEXT;
+
+        }
+
         public override WriteableBitmap GenerateImage()
         {
             WriteableBitmap writeableBmp = BitmapFactory.New(512, 512);

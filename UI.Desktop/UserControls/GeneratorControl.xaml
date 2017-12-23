@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Models="clr-namespace:Logic.UI.Models;assembly=Logic.UI"
              xmlns:UserControls="clr-namespace:UI.Desktop.UserControls"
@@ -14,20 +16,12 @@
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type Models:ColorGenerator}">
 
-            <UserControls:ColorPicker DockPanel.Dock="Top" SelectedColor="{Binding MatrixColor}" MaxWidth="350" MaxHeight="335" Margin="5"/>
+            <UserControls:ColorPicker SelectedColor="{Binding MatrixColor}" MaxWidth="350" MaxHeight="335" Margin="5"/>
 
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type Models:TextGenerator}">
-            <DockPanel>
-                
-                <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,5,0,4">
-                    <Label Content="Enter Text:" DockPanel.Dock="Left"/>
-                    <TextBox x:Name="DisplayTextTB" Text="{Binding DisplayText, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right"/>
-                </DockPanel>
-                <TextBlock DockPanel.Dock="Bottom" Text="{Binding DisplayText}"/>
-                
-            </DockPanel>
+            <UserControls:TextGeneratorControl />
         </DataTemplate>
     </UserControl.Resources>
     
@@ -142,7 +136,12 @@
 
                         <!--Row with GENERATOR TYPE Combobox-->
                         <Label Grid.Column="0" Grid.Row="0" Content="Type:" VerticalAlignment="Center" />
-                        <ComboBox Grid.Column="2" Grid.Row="0" SelectedItem="{Binding GeneratorModel.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding GeneratorTypesList}" VerticalAlignment="Center" Margin="0,2">
+                        <ComboBox Grid.Column="2" Grid.Row="0" x:Name="TypeToBe" SelectedItem="{Binding SelectedGeneratorType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding GeneratorTypesList}" VerticalAlignment="Center" Margin="0,2">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=GeneratorModelTypeChangedCommand}" PassEventArgsToCommand="True"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

@@ -44,6 +44,11 @@ namespace Logic.UI.Models
         public GeneratorTypes GenType { get; }
 
         /// <summary>
+        /// Function which returns a new Generator of the given type
+        /// </summary>
+        public Func<Generator> Create { get; }
+
+        /// <summary>
         /// The Text displayed for the Generator (the name).
         /// </summary>
         public string Text { get; }
@@ -60,10 +65,11 @@ namespace Logic.UI.Models
         /// <param name="type"> GeneratorType of the Generator. </param>
         /// <param name="text"> The "name" of the Generator. </param>
         /// <param name="toolTipText"> ToolTip Text for the Generator. </param>
-        public GeneratorInfo(GeneratorTypes type, string text = null, string toolTipText = null)
+        public GeneratorInfo(GeneratorTypes type, Func<Generator> createFunc, string text = null, string toolTipText = null)
         {
             // Set the type, name and tooltiptext of the GeneratorType.
             GenType = type;
+            Create = createFunc;
             Text = text;
             ToolTipText = toolTipText;
 
@@ -90,25 +96,25 @@ namespace Logic.UI.Models
         /// </summary>
         public static ObservableCollection<GeneratorInfo> InfosList = new ObservableCollection<GeneratorInfo>()
         {
-            new GeneratorInfo(GeneratorTypes.COLOR, "Color"),
-            new GeneratorInfo(GeneratorTypes.ANIMATED_GIF, "Animated GIF"),
-            new GeneratorInfo(GeneratorTypes.CAPTURE, "Capture"),
-            new GeneratorInfo(GeneratorTypes.EXPANDING_OBJECTS, "Expanding Objects"),
-            new GeneratorInfo(GeneratorTypes.FADE_AND_SCROLL, "Fade and Scroll"),
-            new GeneratorInfo(GeneratorTypes.FADING_PIXELS, "Fading Pixels"),
-            new GeneratorInfo(GeneratorTypes.FRACTAL, "Fractal"),
-            new GeneratorInfo(GeneratorTypes.FALLING_OBJECTS, "Falling Objects"),
-            new GeneratorInfo(GeneratorTypes.FIRE, "Fire"),
-            new GeneratorInfo(GeneratorTypes.GRID, "Grid"),
-            new GeneratorInfo(GeneratorTypes.KNIGHT_RIDER, "Knight Rider"),
-            new GeneratorInfo(GeneratorTypes.META_BALLS, "Meta Balls"),
-            new GeneratorInfo(GeneratorTypes.OBJECTS_3D, "Objects 3D"),
-            new GeneratorInfo(GeneratorTypes.PLASMA, "Plasma"),
-            new GeneratorInfo(GeneratorTypes.RANDOM_PIXEL, "Random Pixels"),
-            new GeneratorInfo(GeneratorTypes.TEXT, "Text"),
-            new GeneratorInfo(GeneratorTypes.SIMPLE_SPECTRUM, "Simple Spectrum"),
-            new GeneratorInfo(GeneratorTypes.STROBO, "Strobo"),
-            new GeneratorInfo(GeneratorTypes.WAVE, "Wave"),
+            new GeneratorInfo(GeneratorTypes.COLOR, GetNew_ColorGenerator, "Color"),
+            new GeneratorInfo(GeneratorTypes.ANIMATED_GIF, GetNew_TextGenerator, "Animated GIF"),
+            new GeneratorInfo(GeneratorTypes.CAPTURE, GetNew_ColorGenerator, "Capture"),
+            new GeneratorInfo(GeneratorTypes.EXPANDING_OBJECTS, GetNew_ColorGenerator, "Expanding Objects"),
+            new GeneratorInfo(GeneratorTypes.FADE_AND_SCROLL, GetNew_ColorGenerator, "Fade and Scroll"),
+            new GeneratorInfo(GeneratorTypes.FADING_PIXELS, GetNew_ColorGenerator, "Fading Pixels"),
+            new GeneratorInfo(GeneratorTypes.FRACTAL, GetNew_ColorGenerator, "Fractal"),
+            new GeneratorInfo(GeneratorTypes.FALLING_OBJECTS, GetNew_ColorGenerator, "Falling Objects"),
+            new GeneratorInfo(GeneratorTypes.FIRE, GetNew_ColorGenerator, "Fire"),
+            new GeneratorInfo(GeneratorTypes.GRID, GetNew_ColorGenerator, "Grid"),
+            new GeneratorInfo(GeneratorTypes.KNIGHT_RIDER, GetNew_ColorGenerator, "Knight Rider"),
+            new GeneratorInfo(GeneratorTypes.META_BALLS, GetNew_ColorGenerator, "Meta Balls"),
+            new GeneratorInfo(GeneratorTypes.OBJECTS_3D, GetNew_ColorGenerator, "Objects 3D"),
+            new GeneratorInfo(GeneratorTypes.PLASMA, GetNew_ColorGenerator, "Plasma"),
+            new GeneratorInfo(GeneratorTypes.RANDOM_PIXEL, GetNew_ColorGenerator, "Random Pixels"),
+            new GeneratorInfo(GeneratorTypes.TEXT, GetNew_TextGenerator, "Text"),
+            new GeneratorInfo(GeneratorTypes.SIMPLE_SPECTRUM, GetNew_ColorGenerator, "Simple Spectrum"),
+            new GeneratorInfo(GeneratorTypes.STROBO, GetNew_ColorGenerator, "Strobo"),
+            new GeneratorInfo(GeneratorTypes.WAVE, GetNew_ColorGenerator, "Wave"),
         };
 
 
@@ -124,5 +130,21 @@ namespace Logic.UI.Models
         }
 
 
+        #region 
+
+       
+        private static Generator GetNew_ColorGenerator()
+        {
+            return new ColorGenerator();
+        }
+
+        private static Generator GetNew_TextGenerator()
+        {
+            return new TextGenerator();
+        }
+        #endregion
+
     }
+
+
 }

@@ -11,6 +11,7 @@ namespace Logic.UI.UserControlsVM
     using System;
     using System.ComponentModel;
     using System.Linq;
+    using System.Windows.Controls;
     using System.Windows.Data;
 
     public class GeneratorControlViewModel : BaseViewModel
@@ -27,7 +28,6 @@ namespace Logic.UI.UserControlsVM
                 new TextGenerator
                 {
                     Title = "Text",
-                    Type = GeneratorTypes.TEXT,
                     Speed = 50,
                     Level = 0,
                 });
@@ -35,7 +35,6 @@ namespace Logic.UI.UserControlsVM
                 new ColorGenerator
                 {
                     Title = "Color",
-                    Type = GeneratorTypes.COLOR,
                     Speed = 75,
                     Level = 75,
                 });
@@ -55,7 +54,7 @@ namespace Logic.UI.UserControlsVM
 
             // Sorts the List
             GeneratorsView.SortDescriptions.Clear();
-            GeneratorsView.SortDescriptions.Add(new SortDescription(nameof(GeneratorModel.Type), ListSortDirection.Ascending));
+            //GeneratorsView.SortDescriptions.Add(new SortDescription("name of property to sort after", ListSortDirection.Ascending));
 
             // Event handler if a property of a item changes.
             foreach (var item in Generators)
@@ -89,6 +88,8 @@ namespace Logic.UI.UserControlsVM
             DeleteGeneratorCommand = new RelayCommand(() => Generators.Remove(GeneratorModel));
             AddNewGeneratorCommand = new RelayCommand(() => Generators.Add(new ColorGenerator()));
 
+            GeneratorModelTypeChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) => GeneratorModelTypeChanged(e));
+
         }
 
         #endregion
@@ -116,7 +117,17 @@ namespace Logic.UI.UserControlsVM
         /// </summary>
         public RelayCommand AddNewGeneratorCommand { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public RelayCommand<SelectionChangedEventArgs> GeneratorModelTypeChangedCommand { get; }
 
+        
+
+        /// <summary>
+        /// The type of the GeneratorModel Generator.
+        /// </summary>
+        public GeneratorInfo SelectedGeneratorType { get; set; }
 
         /// <summary>
         /// A IEnumerable with all <see cref="MixerTypes"/> for the MixerType Combobox
@@ -127,6 +138,11 @@ namespace Logic.UI.UserControlsVM
         /// A List with all availabel <see cref="GeneratorTypes"/> for the Types Combobox as <see cref="GeneratorInfo"/> object.
         /// </summary>
         public ObservableCollection<GeneratorInfo> GeneratorTypesList { get => GeneratorTypesExtensionMethods.InfosList; }
+
+        /// <summary>
+        /// The GeneratorType the GeneratorModel should be.
+        /// </summary>
+        public GeneratorTypes GeneratorType { get; set; }
 
         /// <summary>
         /// A <see cref="Generator"/> to edit.
@@ -149,18 +165,53 @@ namespace Logic.UI.UserControlsVM
         /// <summary>
         /// A list of <see cref="Generator"/>.
         /// </summary>
-        private ObservableCollection<Generator> Generators { get; }
+        public ObservableCollection<Generator> Generators { get; }
 
         #endregion
 
         #region Methods
+
+
+        private void GeneratorModelTypeChanged(SelectionChangedEventArgs e)
+        {
+            // If the user selected a different type in the Combobox
+            if (!SelectedGeneratorType.Equals(GeneratorModel.Info))
+            {
+                int modelIndex = Generators.IndexOf(GeneratorModel);
+
+                Generators.RemoveAt(modelIndex);
+
+
+                Generator newGen = SelectedGeneratorType.Create();
+
+                // Add the new Generator to the list at the old position
+                Generators.Insert(modelIndex, newGen);
+
+                // Move the view to the same item again 
+                GeneratorModel = newGen;
+            }
+        }
+
 
         /// <summary>
         /// Moves the <see cref="GeneratorModel"/> down in the List.
         /// </summary>
         public void MoveGeneratorDown()
         {
+            int modelIndex = Generators.IndexOf(GeneratorModel);
 
+            // Is already at the bottom!
+            if (modelIndex == Generators.Count - 1)
+                return;
+
+
+            Generator temp = GeneratorModel;
+
+            Generators[modelIndex] = Generators[modelIndex + 1];
+            Generators[modelIndex + 1] = temp;
+
+            // Set the view to the item we moved
+            GeneratorModel = temp;
         }
 
         /// <summary>
@@ -168,10 +219,23 @@ namespace Logic.UI.UserControlsVM
         /// </summary>
         public void MoveGeneratorUp()
         {
+            int modelIndex = Generators.IndexOf(GeneratorModel);
 
+            // Is already at the top!
+            if (modelIndex == 0)
+                return;
+
+
+            Generator temp = GeneratorModel;
+
+            Generators[modelIndex] = Generators[modelIndex - 1];
+            Generators[modelIndex - 1] = temp;
+
+            // Set the view to the item we moved
+            GeneratorModel = temp;
         }
 
-       
+
         /// <summary>
         /// Event handler for property changes on elements of <see cref="Generator"/>.
         /// </summary>
