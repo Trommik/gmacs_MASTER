@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="BaseTypes\BaseModel.cs" />
     <Compile Include="BaseTypes\BaseViewModel.cs" />
-    <Compile Include="Models\HSVColor.cs" />
     <Compile Include="UserControlsVM\GeneratorControlViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Models\Generator.cs" />

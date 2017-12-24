@@ -54,12 +54,60 @@ namespace Logic.UI.Models
         }
 
 
+        /// <summary>
+        /// Mixes a list of Generators to one writableBitmap image.
+        /// </summary>
+        /// <param name="generators"> The list of tGenerators. </param>
+        /// <returns> The mixed Image. </returns>
+        public WriteableBitmap MixList(IList<Generator> generators)
+        {
+            WriteableBitmap mixedImage;
+
+            // More than 1 generator in the list 
+            if (generators.Count > 1)
+            {
+                mixedImage = generators[0].GenerateImage();
+
+                for(int i = 0; i < generators.Count - 2; i++)
+                {
+
+                    switch (generators[i + 1].MixerType)
+                    {
+                        case MixerTypes.Add:
+                            mixedImage = MixAdd(mixedImage, generators[i + 1].GenerateImage());
+                            break;
+                        case MixerTypes.Substract:
+                            mixedImage = MixSubstract(mixedImage, generators[i + 1].GenerateImage());
+                            break;
+                        case MixerTypes.Multiply:
+                            mixedImage = MixMultiply(mixedImage, generators[i + 1].GenerateImage());
+                            break;
+                        default:
+                            mixedImage = MixAdd(mixedImage, generators[i + 1].GenerateImage());
+                            break;
+                    }
+                }
+            }
+            // Only 1 generator in the list
+            else if (generators.Count == 1)
+            {
+                mixedImage = generators[0].GenerateImage();
+            }
+            // No generator in the list 
+            else
+            {
+                mixedImage = null;
+            }
+
+            return mixedImage;
+        }
+
 
         #region mixer methods
 
         public WriteableBitmap MixAdd(WriteableBitmap inA, WriteableBitmap inB)
         {
-            Rect cRect = new Rect(new Size(10,10)); // Matrix SIZE!
+            Rect cRect = new Rect(new Size(inA.Width,inA.Height));
             inA.Blit(cRect, inB, cRect, WriteableBitmapExtensions.BlendMode.Additive);
 
             return inA;
@@ -67,7 +115,7 @@ namespace Logic.UI.Models
 
         private WriteableBitmap MixSubstract(WriteableBitmap inA, WriteableBitmap inB)
         {
-            Rect cRect = new Rect(new Size(10, 10)); // Matrix SIZE!
+            Rect cRect = new Rect(new Size(inA.Width, inA.Height));
             inA.Blit(cRect, inB, cRect, WriteableBitmapExtensions.BlendMode.Subtractive);
 
             return inA;
@@ -75,41 +123,42 @@ namespace Logic.UI.Models
 
         private WriteableBitmap MixMultiply(WriteableBitmap inA, WriteableBitmap inB)
         {
-            Rect cRect = new Rect(new Size(10, 10)); // Matrix SIZE!
+            Rect cRect = new Rect(new Size(inA.Width, inA.Height));
             inA.Blit(cRect, inB, cRect, WriteableBitmapExtensions.BlendMode.Multiply);
 
             return inA;
         }
     
 
+
         private WriteableBitmap MixDivide(WriteableBitmap inA, WriteableBitmap inB)
         {
 
-            return BitmapFactory.New(10, 10);
+           throw new NotImplementedException();
         }
 
         private WriteableBitmap MixDifference(WriteableBitmap inA, WriteableBitmap inB)
         {
 
-            return BitmapFactory.New(10, 10);
+            throw new NotImplementedException();
         }
 
         private WriteableBitmap MixAND(WriteableBitmap inA, WriteableBitmap inB)
         {
 
-            return BitmapFactory.New(10, 10);
+            throw new NotImplementedException();
         }
 
         private WriteableBitmap MixOR(WriteableBitmap inA, WriteableBitmap inB)
         {
 
-            return BitmapFactory.New(10, 10);
+            throw new NotImplementedException();
         }
 
         private WriteableBitmap MixXOR(WriteableBitmap inA, WriteableBitmap inB)
         {
 
-            return BitmapFactory.New(10, 10);
+            throw new NotImplementedException();
         }
         #endregion
 

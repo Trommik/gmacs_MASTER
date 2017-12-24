@@ -140,8 +140,7 @@ namespace Logic.UI
             LeftMatrixViewportVM.UpdateImage(LeftGeneratorVM.GeneratorModel.GenerateImage());
 
             Mixer m = new Mixer();
-
-            RightMatrixViewportVM.UpdateImage(m.MixAdd(RightGeneratorVM.Generators[0].GenerateImage(), RightGeneratorVM.Generators[1].GenerateImage()));
+            RightMatrixViewportVM.UpdateImage(m.MixList(RightGeneratorVM.Generators));
         }
 
         private void InitViewModels()
