@@ -37,10 +37,10 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Column="0" Header="Generators" Margin="0 0 0 5">
+        <GroupBox Grid.Column="0" Header="Generators:" Margin="0 0 0 5">
             <DockPanel Margin="0 2 0 0">
                 <!--All Buttons to edit the Generators list-->
-                <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical" Width="23" Background="{DynamicResource AccentColorBrush2}">
+                <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical" Width="23" Background="{DynamicResource AccentColorBrush}">
                     <ToolBar ToolBarTray.IsLocked="True" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <!--ADD Button-->
                         <Button Command="{Binding AddNewGeneratorCommand}" >
@@ -172,7 +172,7 @@
 
                     <!-- Shows a specific DataTemplate defined in the UserControl Resources.
                          This Template is for setting the specific Generator options. -->
-                    <ContentControl Content="{Binding GeneratorModel}" Grid.Column="2"/>
+                    <ContentControl Content="{Binding GeneratorModel}" Grid.Column="2" Margin="0 3 0 0"/>
 
                 </Grid>
             </ScrollViewer>

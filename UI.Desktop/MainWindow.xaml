@@ -6,6 +6,7 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:usercontrols="clr-namespace:UI.Desktop.UserControls"
         xmlns:metro="clr-namespace:MahApps.Metro;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Local="clr-namespace:UI.Desktop"
         mc:Ignorable="d"
         d:DesignWidth="1169" d:DesignHeight="791" 
@@ -73,46 +74,59 @@
     </controls:MetroWindow.Flyouts>
 
     <controls:MetroWindow.Resources>
-        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuGlyphItem}">
-            <Grid Height="48">
+
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
+            <Grid x:Name="RootGrid"
+                      Height="48"
+                      Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
-                               FontSize="16"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="Segoe MDL2 Assets"
-                               Foreground="White"
-                               Text="{Binding Glyph}" />
+                <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    Focusable="False"
+                                    Foreground="White" />
                 <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Foreground="White"
                                Text="{Binding Label}" />
             </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                    <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
 
         <DataTemplate x:Key="OptionsMenuItemTemplate" DataType="{x:Type controls:HamburgerMenuGlyphItem}">
-            <Grid Height="48">
+            <Grid x:Name="RootGrid"
+                      Height="48"
+                      Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
-                               FontSize="16"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="Segoe MDL2 Assets"
-                               Foreground="White"
-                               Text="{Binding Glyph}" />
+                <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    Focusable="False"
+                                    Foreground="White" />
                 <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Foreground="White"
                                Text="{Binding Label}" />
             </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                    <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </controls:MetroWindow.Resources>
 
@@ -125,29 +139,14 @@
         <controls:HamburgerMenu DockPanel.Dock="Left" IsPaneOpen="False" DisplayMode="CompactInline" ItemTemplate="{StaticResource MenuItemTemplate}" OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}">
             <controls:HamburgerMenu.ItemsSource>
                 <controls:HamburgerMenuItemCollection>
-                    <controls:HamburgerMenuGlyphItem Glyph="H"
-                                                     Label="Home">
-
-                    </controls:HamburgerMenuGlyphItem>
-
-                    <controls:HamburgerMenuGlyphItem Glyph="P"
-                                                     Label="Private">
-
-                    </controls:HamburgerMenuGlyphItem>
-
-                    <controls:HamburgerMenuGlyphItem Glyph="S"
-                                                     Label="Settings">
-
-                    </controls:HamburgerMenuGlyphItem>
+                    <controls:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Home"/>
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>
 
             <!--  Options  -->
             <controls:HamburgerMenu.OptionsItemsSource>
                 <controls:HamburgerMenuItemCollection>
-                    <controls:HamburgerMenuGlyphItem Glyph="A"
-                                                     Label="About">
-                    </controls:HamburgerMenuGlyphItem>
+                    <controls:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Settings}" Label="Settings" />
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.OptionsItemsSource>
 

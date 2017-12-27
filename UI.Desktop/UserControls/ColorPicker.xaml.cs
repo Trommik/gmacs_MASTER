@@ -12,18 +12,21 @@ namespace UI.Desktop.UserControls
     /// <summary>
     /// Interaction logic for ColorPicker.xaml
     /// </summary>
-    public partial class ColorPicker : UserControl
+    public partial class ColorPicker : UserControl, INotifyPropertyChanged
     {
+        #region events
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
         #region DP properties
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register("SelectedColor",
                                                                           typeof(Color),
-                                                                          typeof(ColorPicker), 
-                                                                          new FrameworkPropertyMetadata(Color.FromArgb(255,0,0,0), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+                                                                          typeof(ColorPicker),
+                                                                          new FrameworkPropertyMetadata(Colors.Transparent, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         #endregion
 
@@ -43,6 +46,8 @@ namespace UI.Desktop.UserControls
                 Height = 4
             };
 
+            DataContext = this;
+
         }
 
         #endregion
@@ -53,10 +58,16 @@ namespace UI.Desktop.UserControls
         /// <summary>
         /// 
         /// </summary>
-        public Color SelectedColor {
+        public Color SelectedColor
+        {
             get { return (Color)GetValue(SelectedColorProperty); }
             set { SetValue(SelectedColorProperty, value); }
         }
+
+        public int A { get => SelectedColor.A; set => SelectedColor = Color.FromArgb((byte)value, SelectedColor.R, SelectedColor.G, SelectedColor.B); }
+        public int R { get => SelectedColor.R; set => SelectedColor = Color.FromArgb(SelectedColor.A, (byte)value, SelectedColor.G, SelectedColor.B); }
+        public int G { get => SelectedColor.G; set => SelectedColor = Color.FromArgb(SelectedColor.A, SelectedColor.R, (byte)value, SelectedColor.B); }
+        public int B { get => SelectedColor.B; set => SelectedColor = Color.FromArgb(SelectedColor.A, SelectedColor.R, SelectedColor.G, (byte)value); }
 
         private Point lastSelectedPoint;
         private Rectangle myEllipse;
@@ -86,7 +97,7 @@ namespace UI.Desktop.UserControls
 
                 // Hue is angle in deg, 0-360
                 double angleRadians = Math.Atan2(yRel, xRel);
-                double hue = angleRadians * (180 / Math.PI);
+                double hue = ColorUtil.RadianToDegree(angleRadians);
                 if (hue < 0)
                     hue = 360 + hue;
 
@@ -105,22 +116,21 @@ namespace UI.Desktop.UserControls
                 {
                     double vectorLen = Math.Sqrt(xRel * xRel + yRel * yRel);
 
-                    double xN = (1 / vectorLen) * xRel ;
-                    double yN = (1 / vectorLen) * yRel ;
+                    double xN = (1 / vectorLen) * xRel;
+                    double yN = (1 / vectorLen) * yRel;
 
                     lastSelectedPoint.X = xN * smallestDim / 2 + CPCanvas.ActualWidth / 2;
                     lastSelectedPoint.Y = yN * smallestDim / 2 + CPCanvas.ActualHeight / 2;
-                         
+
                 }
 
 
                 Canvas.SetTop(myEllipse, lastSelectedPoint.Y - 2);
                 Canvas.SetLeft(myEllipse, lastSelectedPoint.X - 2);
-                
-               
+
+
             }
         }
-
 
 
         #endregion
@@ -159,8 +169,8 @@ namespace UI.Desktop.UserControls
 
                 canvas.Children.Add(line);
             }
-            
-            
+
+
             Canvas.SetZIndex(myEllipse, 100);
             canvas.Children.Add(myEllipse);
 

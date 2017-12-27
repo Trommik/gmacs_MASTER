@@ -5,34 +5,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="335" d:DesignWidth="350">
+             d:DesignHeight="205" d:DesignWidth="355">
 
 
-    <Grid Margin="5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Expander  Header="Color Picker" Background="{Binding SelectedColor, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource ColorToSolidColorBrush_ValueConverter}}">
+        <DockPanel>
+            <GroupBox DockPanel.Dock="Right" Margin="0,6,0,0" MinWidth="150">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Settings" FontSize="12pt" Padding="0 0 5 0" VerticalAlignment="Center"/>
+                        <iconPacks:PackIconOcticons Kind="Settings" VerticalAlignment="Stretch"/>
+                    </StackPanel>
+                </GroupBox.Header>
 
-        <Expander MouseMove="GetPointColor" Grid.Row="0" Grid.Column="0" Header="Color Picker" Background="{Binding SelectedColor, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource ColorToSolidColorBrush_ValueConverter}}" BorderBrush="White">
-            <DockPanel>
-                <Canvas MinWidth="200" MinHeight="200" DockPanel.Dock="Top" x:Name="CPCanvas" SizeChanged="CPCanvas_SizeChanged"  Margin="10"/>
-            </DockPanel>
-        </Expander>
+                <StackPanel Orientation="Vertical">
+                        
+                    <Grid Margin="0 5 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="1" Margin="0,6,0,0">
-            <Label DockPanel.Dock="Left" Content="Html:" Padding="5"/>
-            
-            <Button Padding="4">
-                <iconPacks:PackIconModern DockPanel.Dock="Left" Kind="ClipboardPaste" MouseDown="HmtlFromClipboard_MouseDown" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </Button>
+                        
+                        <Label Grid.Column="0" Grid.Row="0" Content="Html:" Padding="5"/>
+                        <Button Grid.Column="2" Grid.Row="0" Padding="4">
+                            <iconPacks:PackIconModern Kind="ClipboardPaste" MouseDown="HmtlFromClipboard_MouseDown" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Button>
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SelectedColor, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center"/>
 
-            <TextBox DockPanel.Dock="Right" Text="{Binding SelectedColor, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="A:"/>
+                        <Label Grid.Column="2" Grid.Row="1" Content="{Binding A}"/>
+                        <Slider Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"  Value="{Binding A, UpdateSourceTrigger=PropertyChanged}" Maximum="255" Interval="1"/>
+
+                        <Label Grid.Column="0" Grid.Row="2" Content="R:"/>
+                        <Label Grid.Column="2" Grid.Row="2" Content="{Binding R}"/>
+                        <Slider Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Value="{Binding R, UpdateSourceTrigger=PropertyChanged}" Maximum="255" Interval="1"/>
+
+                        <Label Grid.Column="0" Grid.Row="3" Content="G:"/>
+                        <Label Grid.Column="2" Grid.Row="3" Content="{Binding G}" />
+                        <Slider Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Value="{Binding G, UpdateSourceTrigger=PropertyChanged}" Maximum="255" Interval="1"/>
+
+                        <Label Grid.Column="0" Grid.Row="4" Content="B:"/>
+                        <Label Grid.Column="2" Grid.Row="4" Content="{Binding B}"/>
+                        <Slider Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Value="{Binding B, UpdateSourceTrigger=PropertyChanged}" Maximum="255" Interval="1"/>
+                    </Grid>
+
+                </StackPanel>
+
+            </GroupBox>
+
+            <Grid DockPanel.Dock="Top" MouseMove="GetPointColor">
+                <Canvas MinWidth="150" MinHeight="150" x:Name="CPCanvas" SizeChanged="CPCanvas_SizeChanged"  Margin="10"/>
+                <Slider Maximum="1"
+            </Grid>
         </DockPanel>
 
-    </Grid>
+    </Expander>
 
 </UserControl>

@@ -17,7 +17,7 @@ namespace Logic.UI.UserControlsVM
 
     public class GeneratorControlViewModel : BaseViewModel
     {
-        #region Constructor and Destructor
+        #region constructor and destructor
 
         public GeneratorControlViewModel()
         {
@@ -96,7 +96,7 @@ namespace Logic.UI.UserControlsVM
         #endregion
 
 
-        #region Propertyies
+        #region properties
 
         /// <summary>
         /// Moves the <see cref="GeneratorModel"/> down in the List.
@@ -169,7 +169,7 @@ namespace Logic.UI.UserControlsVM
 
         #endregion
 
-        #region Methods
+        #region methods
 
 
         private void GeneratorModelTypeChanged(SelectionChangedEventArgs e)
