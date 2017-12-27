@@ -8,6 +8,7 @@ namespace Logic.UI.UserControlsVM
     using GalaSoft.MvvmLight.Command;
     using GalaSoft.MvvmLight.Threading;
     using Logic.UI.Models;
+    using PropertyChanged;
     using System;
     using System.ComponentModel;
     using System.Linq;
@@ -22,22 +23,22 @@ namespace Logic.UI.UserControlsVM
         {
 
             // Create some default generators for Debugging.
-            var startupGeneratorList = new List<Generator>();
-
-            startupGeneratorList.Add(
-                new TextGenerator
-                {
-                    Title = "Text",
-                    Speed = 50,
-                    Level = 0,
-                });
-            startupGeneratorList.Add(
+            var startupGeneratorList = new List<Generator>
+            {
                 new ColorGenerator
                 {
-                    Title = "Color",
+                    Title = "Color 1",
+                    Speed = 50,
+                    Level = 0,
+ 
+                },
+                new ColorGenerator
+                {
+                    Title = "Color 2",
                     Speed = 75,
                     Level = 75,
-                });
+                }
+            };
 
             // Add them to the real list.
             Generators = new ObservableCollection<Generator>(startupGeneratorList);
@@ -122,7 +123,6 @@ namespace Logic.UI.UserControlsVM
         /// </summary>
         public RelayCommand<SelectionChangedEventArgs> GeneratorModelTypeChangedCommand { get; }
 
-        
 
         /// <summary>
         /// The type of the GeneratorModel Generator.

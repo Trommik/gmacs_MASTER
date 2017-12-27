@@ -11,7 +11,7 @@ namespace Logic.UI.Models
 
     public abstract class Generator : BaseModel
     {
-        #region MVVM_Methods
+        #region mvvm
 
         /// <summary>
         /// Override this method in derived types to initialize command logic.
@@ -19,7 +19,6 @@ namespace Logic.UI.Models
         protected override void InitCommands()
         {
             base.InitCommands();
-
         }
 
         /// <summary>
@@ -32,13 +31,21 @@ namespace Logic.UI.Models
 
         #endregion
 
+        #region constructor and destructor
 
-        #region Properties
+        public Generator()
+        {
+            Title = "New Generator";
+        }
+
+        #endregion
+
+        #region properties
 
         /// <summary>
         /// The Info of the Generator
         /// </summary>
-        public GeneratorInfo Info { get => Type.GetInfo(); set => Type = value.GenType; }
+        public GeneratorInfo Info { get => Type.GetInfo(); protected set => Type = value.GenType; }
 
         /// <summary>
         /// The Type of the generator.
@@ -70,7 +77,7 @@ namespace Logic.UI.Models
 
         #endregion
 
-        #region Functions
+        #region methods
 
         /// <summary>
         /// Implement the logic to generate the image with the desired Size.

@@ -24,9 +24,7 @@ namespace Logic.UI.Models
         {
             WriteableBitmap writeableBmp = BitmapFactory.New(10, 10);
 
-            // Black triangle with the points P1(10, 5), P2(20, 40) and P3(30, 10)
             writeableBmp.Clear(MatrixColor);
-            writeableBmp.FillRectangle(0, 0, 1, 1, Colors.Black);
 
             return writeableBmp;
         }

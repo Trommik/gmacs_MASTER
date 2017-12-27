@@ -8,15 +8,19 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Models="clr-namespace:Logic.UI.Models;assembly=Logic.UI"
              xmlns:UserControls="clr-namespace:UI.Desktop.UserControls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:valueconverter="clr-namespace:UI.Desktop.ValueConverter"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
 
     
     <!--DataTemplates for each individual Generator-->
     <UserControl.Resources>
+        <valueconverter:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+        
         <DataTemplate DataType="{x:Type Models:ColorGenerator}">
 
-            <UserControls:ColorPicker SelectedColor="{Binding MatrixColor}" MaxWidth="350" MaxHeight="335" Margin="5"/>
+            <UserControls:ColorPicker SelectedColor="{Binding MatrixColor}"/>
 
         </DataTemplate>
 
@@ -24,90 +28,63 @@
             <UserControls:TextGeneratorControl />
         </DataTemplate>
     </UserControl.Resources>
-    
-    
-    <Grid >
+
+
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"  MinWidth="180"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        
-        <!--All Buttons to edit the Generators list-->
-        <ToolBarPanel Grid.Column="0" Margin="5,5,0,0" Grid.Row="0" Background="{DynamicResource Gray14}">
-            <ToolBar>
+        <GroupBox Grid.Column="0" Header="Generators" Margin="0 0 0 5">
+            <DockPanel Margin="0 2 0 0">
+                <!--All Buttons to edit the Generators list-->
+                <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical" Width="23" Background="{DynamicResource AccentColorBrush2}">
+                    <ToolBar ToolBarTray.IsLocked="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <!--ADD Button-->
+                        <Button Command="{Binding AddNewGeneratorCommand}" >
+                            <iconPacks:PackIconModern Kind="Add" Foreground="{DynamicResource TextBrush}"/>
+                        </Button>
 
-                <!--ADD Button-->
-                <Button Command="{Binding AddNewGeneratorCommand}">
-                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_add}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
+                        <!--DELETE Button-->
+                        <Button Command="{Binding DeleteGeneratorCommand}" Margin="0,3,0,0">
+                            <iconPacks:PackIconModern Kind="Delete" Foreground="{DynamicResource TextBrush}" />
+                        </Button>
 
-                <!--DELETE Button-->
-                <Button Command="{Binding DeleteGeneratorCommand}">
-                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_delete}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
-                
-                <!--UP Button-->
-                <Button Command="{Binding MoveGeneratorUpCommand}">
-                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_chevron_up}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
-                
-                <!--DOWN Button-->
-                <Button Command="{Binding MoveGeneratorDownCommand}">
-                    <Rectangle DockPanel.Dock="Right" Width="10" Height="10" Fill="White" Margin="4">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_chevron_down}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
-                
-                                
-            </ToolBar>
-        </ToolBarPanel>
+                        <!--UP Button-->
+                        <Button Command="{Binding MoveGeneratorUpCommand}" Margin="0,10,0,0">
+                            <iconPacks:PackIconMaterial Kind="MenuUp" Foreground="{DynamicResource TextBrush}" />
+                        </Button>
+
+                        <!--DOWN Button-->
+                        <Button Command="{Binding MoveGeneratorDownCommand}">
+                            <iconPacks:PackIconMaterial Kind="MenuDown" Foreground="{DynamicResource TextBrush}" />
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+
+                <!--The list of created Generators-->
+                <ListBox DockPanel.Dock="Left" AlternationCount="100" x:Name="GeneratorListBox" ItemsSource="{Binding GeneratorsView}" IsSynchronizedWithCurrentItem="True" >
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="{Binding Title}" DockPanel.Dock="Left"/>
+
+                                <Label DockPanel.Dock="Right" Content="{Binding MixerType}" Margin="0,0,5,0" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+
+        <GridSplitter Grid.Column="1" Style="{DynamicResource MyVertGridSplitter}"/>
 
 
-        <!--The list of created Generators-->
-        <ListBox x:Name="GeneratorListBox" Grid.Column="0" Grid.Row="1" Margin="5,5,0,5" ItemsSource="{Binding GeneratorsView}" IsSynchronizedWithCurrentItem="True">
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel LastChildFill="False">
-                        <Label Content="{Binding Title}" DockPanel.Dock="Left"/>
-
-                        <Rectangle DockPanel.Dock="Right" Margin="0,0,5,0" Width="16" Height="10" Fill="WhiteSmoke">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Visual="{StaticResource appbar_logic_and}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-
-                    </DockPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-        </ListBox>
-
-
-        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Style="{DynamicResource MyVertGridSplitter}" Background="Transparent" />
-
-
-        <GroupBox Header="Generator Options:" Grid.Column="2" Grid.RowSpan="2" Margin="5" Background="#FF007ACC" Controls:GroupBoxHelper.HeaderForeground="White">
+        <GroupBox Header="Generator Options:" Grid.Column="2" Grid.RowSpan="2" Margin="0 0 5 5">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,5,0">
 
                 <Grid>
@@ -154,7 +131,7 @@
 
                         <!--Row with MIX MODE Combobox-->
                         <Label Grid.Column="0" Grid.Row="1" Content="Mixer Mode:" VerticalAlignment="Center" />
-                        <ComboBox Grid.Column="2" Grid.Row="1" SelectedItem="{Binding GeneratorModel.MixerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding MixerTypesList}" VerticalAlignment="Center" Margin="0,2"/>
+                        <ComboBox Grid.Column="2" Grid.Row="1" IsEnabled="{Binding GeneratorsView.CurrentPosition}" SelectedItem="{Binding GeneratorModel.MixerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{Binding MixerTypesList}" VerticalAlignment="Center" Margin="0,2"/>
 
 
                         <!--Row with SPEED Slider and Labels-->

@@ -68,7 +68,7 @@ namespace Logic.UI.Models
             {
                 mixedImage = generators[0].GenerateImage();
 
-                for(int i = 0; i < generators.Count - 2; i++)
+                for(int i = 0; i <= generators.Count - 2; i++)
                 {
 
                     switch (generators[i + 1].MixerType)
@@ -115,8 +115,8 @@ namespace Logic.UI.Models
 
         private WriteableBitmap MixSubstract(WriteableBitmap inA, WriteableBitmap inB)
         {
-            Rect cRect = new Rect(new Size(inA.Width, inA.Height));
-            inA.Blit(cRect, inB, cRect, WriteableBitmapExtensions.BlendMode.Subtractive);
+            
+            inA.Blit(new Rect(0, 0, inA.Width, inA.Height), inB, new Rect(0, 0, inB.Width, inB.Height), WriteableBitmapExtensions.BlendMode.Subtractive);
 
             return inA;
         }

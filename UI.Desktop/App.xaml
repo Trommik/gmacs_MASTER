@@ -6,7 +6,6 @@
              xmlns:Desktop="clr-namespace:UI.Desktop"
              xmlns:UserControls="clr-namespace:UI.Desktop.UserControls"
              xmlns:UserControlsVM="clr-namespace:Logic.UI.UserControlsVM;assembly=Logic.UI"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:ValueConverter="clr-namespace:UI.Desktop.ValueConverter"
              
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -17,8 +16,6 @@
 
     <Application.Resources>
         <ResourceDictionary>
-
-            
             
             <!--Adds the MahApps.Metro Theme. Info: http://mahapps.com/guides/quick-start.html#installation-->
             <ResourceDictionary.MergedDictionaries>
@@ -28,14 +25,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
-
-                <!--MahApps.Metro Icons-->
-                <ResourceDictionary Source="/Resources/Icons.xaml" />
-
-                <!--My Colors-->
-                <ResourceDictionary Source="Resources/Colors.xaml"/>
-
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -60,84 +51,16 @@
             <ValueConverter:ColorToSolidColorBrushValueConverter  x:Key="ColorToSolidColorBrush_ValueConverter"/>
 
 
-            <!--Custom style for the MetroGroupBox-->
-            <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MetroGroupBox}">
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="Background" Value="{DynamicResource Gray7}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource Gray7}" />
-
-                <Setter Property="Controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
-
-                <Setter Property="Controls:GroupBoxHelper.HeaderForeground" Value="{DynamicResource GrayNormal}" />
+            <Style BasedOn="{StaticResource SquareButtonStyle}" TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness" Value="0"/>
             </Style>
-            <!--Custom style for the MetroGroupBox ENDE-->
-
-
-            <!--Custom style for the MetroTabItems-->
-            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MetroTabItem}" >
-                <Setter Property="BorderBrush" Value="{DynamicResource Gray7}"/>
-
-                <Style.Triggers>
-                    <!--TabPlacment = Bottom-->
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="TabStripPlacement" Value="Bottom" />
-                            <Condition Property="IsSelected" Value="true" />
-                        </MultiTrigger.Conditions>
-                        <MultiTrigger.Setters>
-                            <Setter Property="Margin" Value="0,-1,0,0"/>
-
-                            <Setter Property="Background" Value="{DynamicResource Gray4}"/>
-                            <Setter Property="BorderThickness" Value="1,0,1,1"/>
-                        </MultiTrigger.Setters>
-                    </MultiTrigger>
-
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="TabStripPlacement" Value="Bottom" />
-                            <Condition Property="IsSelected" Value="false" />
-                        </MultiTrigger.Conditions>
-                        <MultiTrigger.Setters>
-                            <Setter Property="Background" Value="{DynamicResource Gray14}"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-
-                        </MultiTrigger.Setters>
-                    </MultiTrigger>
-
-                    <!--TabPlacment = Top-->
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="TabStripPlacement" Value="Top" />
-                            <Condition Property="IsSelected" Value="true" />
-                        </MultiTrigger.Conditions>
-                        <MultiTrigger.Setters>
-                            <Setter Property="Margin" Value="0,0,0,-1"/>
-
-                            <Setter Property="Background" Value="{DynamicResource Gray4}"/>
-                            <Setter Property="BorderThickness" Value="1,1,1,0"/>
-                        </MultiTrigger.Setters>
-                    </MultiTrigger>
-
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="TabStripPlacement" Value="Top" />
-                            <Condition Property="IsSelected" Value="false" />
-                        </MultiTrigger.Conditions>
-                        <MultiTrigger.Setters>
-                            <Setter Property="Background" Value="{DynamicResource Gray14}"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-
-                        </MultiTrigger.Setters>
-                    </MultiTrigger>
-                </Style.Triggers>
-            </Style>
-            <!--Custom style for the MetroTabItems ENDE-->
 
 
             <!--Horizontal GridSplitter-->
             <Style x:Key="GridSplitterHorizontalGripStyle" TargetType="{x:Type GridSplitter}">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Cursor" Value="SizeNS" />
+                <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
 
                 <Setter Property="Template">
                     <Setter.Value>
@@ -164,6 +87,7 @@
             <Style x:Key="GridSplitterVerticalGripStyle" TargetType="{x:Type GridSplitter}">
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Cursor" Value="SizeWE" />
+                <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
 
                 <Setter Property="Template">
                     <Setter.Value>

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using MahApps.Metro.Controls;
+using MahApps.Metro;
 
 namespace UI.Desktop
 {
@@ -25,6 +26,25 @@ namespace UI.Desktop
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AccentSelector.SelectedItem is Accent selectedAccent)
+            {
+                var theme = ThemeManager.DetectAppStyle(Application.Current);
+                ThemeManager.ChangeAppStyle(Application.Current, selectedAccent, theme.Item1);
+                Application.Current.MainWindow.Activate();
+            }
+        }
+
+        private void ThemeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ThemeSelector.SelectedItem is AppTheme selectedTheme)
+            {
+                var theme = ThemeManager.DetectAppStyle(Application.Current);
+                ThemeManager.ChangeAppStyle(Application.Current, theme.Item2, selectedTheme);
+            }
         }
     }
 }
